@@ -1,0 +1,264 @@
+17 May 2012 21:59:03,793 INFO main fi.motetool.motetool.App - Starting application
+17 May 2012 21:59:03,856 INFO main fi.motetool.motetool.App - Initializing depencencies
+17 May 2012 21:59:03,856 INFO main fi.motetool.motetool.App - Arguments parsed, can start logic
+17 May 2012 21:59:03,857 INFO main fi.motetool.motetool.App - Detecting new nodes
+17 May 2012 21:59:03,857 INFO main fi.motetool.motetool.USBarbitratorImpl - Will use motelist command: motelist -usb -c
+17 May 2012 21:59:03,889 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=M4AOCF99; device=mote_tmote04
+17 May 2012 21:59:03,891 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 04
+17 May 2012 21:59:03,891 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=M4AOCF7L; device=mote_tmoteXX
+17 May 2012 21:59:03,892 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3U5J; device=mote_telos04
+17 May 2012 21:59:03,892 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 04
+17 May 2012 21:59:03,892 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3UIT; device=mote_telos05
+17 May 2012 21:59:03,893 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 05
+17 May 2012 21:59:03,893 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3I5E; device=mote_telos06
+17 May 2012 21:59:03,893 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 06
+17 May 2012 21:59:03,894 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3I7K; device=mote_telos07
+17 May 2012 21:59:03,894 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 07
+17 May 2012 21:59:03,895 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6EKQ; device=mote_telos10
+17 May 2012 21:59:03,895 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 10
+17 May 2012 21:59:03,895 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO68UR; device=mote_telos12
+17 May 2012 21:59:03,896 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 12
+17 May 2012 21:59:03,896 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO405O; device=mote_telos13
+17 May 2012 21:59:03,897 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 13
+17 May 2012 21:59:03,897 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6CV1; device=mote_telos14
+17 May 2012 21:59:03,897 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 14
+17 May 2012 21:59:03,898 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3UA2; device=mote_telos15
+17 May 2012 21:59:03,898 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 15
+17 May 2012 21:59:03,899 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO68RZ; device=mote_telos17
+17 May 2012 21:59:03,899 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 17
+17 May 2012 21:59:03,900 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3UVK; device=mote_telos18
+17 May 2012 21:59:03,900 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 18
+17 May 2012 21:59:03,900 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO4FQV; device=mote_telos19
+17 May 2012 21:59:03,901 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 19
+17 May 2012 21:59:03,901 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3OKT; device=mote_telos21
+17 May 2012 21:59:03,901 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 21
+17 May 2012 21:59:03,902 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6H9G; device=mote_telos22
+17 May 2012 21:59:03,902 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 22
+17 May 2012 21:59:03,903 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6C4O; device=mote_telos24
+17 May 2012 21:59:03,903 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 24
+17 May 2012 21:59:03,903 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6BLG; device=mote_telos25
+17 May 2012 21:59:03,904 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 25
+17 May 2012 21:59:03,904 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6H6Z; device=mote_telos27
+17 May 2012 21:59:03,904 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 27
+17 May 2012 21:59:03,905 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO40GK; device=mote_telos28
+17 May 2012 21:59:03,905 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 28
+17 May 2012 21:59:03,905 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6CH7; device=mote_telos29
+17 May 2012 21:59:03,906 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 29
+17 May 2012 21:59:03,906 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTOCCSR; device=mote_telos30
+17 May 2012 21:59:03,906 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 30
+17 May 2012 21:59:03,907 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3Z64; device=mote_telos31
+17 May 2012 21:59:03,907 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 31
+17 May 2012 21:59:03,908 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6G7C; device=mote_telos32
+17 May 2012 21:59:03,908 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 32
+17 May 2012 21:59:03,908 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3XMF; device=mote_telos33
+17 May 2012 21:59:03,909 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 33
+17 May 2012 21:59:03,909 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3TI0; device=mote_telos35
+17 May 2012 21:59:03,909 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 35
+17 May 2012 21:59:03,910 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6C0L; device=mote_telos36
+17 May 2012 21:59:03,910 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 36
+17 May 2012 21:59:03,910 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6AVP; device=mote_telos37
+17 May 2012 21:59:03,911 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 37
+17 May 2012 21:59:03,911 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6409; device=mote_telos38
+17 May 2012 21:59:03,911 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 38
+17 May 2012 21:59:03,912 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6G89; device=mote_telos39
+17 May 2012 21:59:03,912 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 39
+17 May 2012 21:59:03,913 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6DBR; device=mote_telos40
+17 May 2012 21:59:03,913 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 40
+17 May 2012 21:59:03,913 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3TIQ; device=mote_telos41
+17 May 2012 21:59:03,914 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 41
+17 May 2012 21:59:03,914 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6EGB; device=mote_telos42
+17 May 2012 21:59:03,914 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 42
+17 May 2012 21:59:03,915 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3W81; device=mote_telos43
+17 May 2012 21:59:03,915 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 43
+17 May 2012 21:59:03,915 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO40WD; device=mote_telos44
+17 May 2012 21:59:03,916 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 44
+17 May 2012 21:59:03,916 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3OZ5; device=mote_telos46
+17 May 2012 21:59:03,916 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 46
+17 May 2012 21:59:03,917 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3OFO; device=mote_telos47
+17 May 2012 21:59:03,917 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 47
+17 May 2012 21:59:03,918 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3VKQ; device=mote_telos48
+17 May 2012 21:59:03,918 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 48
+17 May 2012 21:59:03,918 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6H4A; device=mote_telos49
+17 May 2012 21:59:03,919 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 49
+17 May 2012 21:59:03,919 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3MLL; device=mote_telos50
+17 May 2012 21:59:03,919 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 50
+17 May 2012 21:59:03,920 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTP1DE4; device=mote_mica01
+17 May 2012 21:59:03,920 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 01
+17 May 2012 21:59:04,214 INFO main fi.motetool.motetool.USBarbitratorImpl - No devices was found, return null
+17 May 2012 21:59:04,217 INFO main fi.motetool.motetool.App - Everything OK, exiting
+17 May 2012 22:00:37,228 INFO main fi.motetool.motetool.App - Starting application
+17 May 2012 22:00:37,328 INFO main fi.motetool.motetool.App - Initializing depencencies
+17 May 2012 22:00:37,329 INFO main fi.motetool.motetool.App - Arguments parsed, can start logic
+17 May 2012 22:00:37,329 INFO main fi.motetool.motetool.App - Detecting new nodes
+17 May 2012 22:00:37,330 INFO main fi.motetool.motetool.USBarbitratorImpl - Will use motelist command: motelist -usb -c
+17 May 2012 22:00:37,337 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=M4AOCF99; device=mote_tmote04
+17 May 2012 22:00:37,338 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 04
+17 May 2012 22:00:37,338 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=M4AOCF7L; device=mote_tmoteXX
+17 May 2012 22:00:37,339 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3U5J; device=mote_telos04
+17 May 2012 22:00:37,339 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 04
+17 May 2012 22:00:37,339 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3UIT; device=mote_telos05
+17 May 2012 22:00:37,340 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 05
+17 May 2012 22:00:37,340 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3I5E; device=mote_telos06
+17 May 2012 22:00:37,340 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 06
+17 May 2012 22:00:37,341 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3I7K; device=mote_telos07
+17 May 2012 22:00:37,341 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 07
+17 May 2012 22:00:37,341 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6EKQ; device=mote_telos10
+17 May 2012 22:00:37,342 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 10
+17 May 2012 22:00:37,342 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO68UR; device=mote_telos12
+17 May 2012 22:00:37,343 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 12
+17 May 2012 22:00:37,343 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO405O; device=mote_telos13
+17 May 2012 22:00:37,343 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 13
+17 May 2012 22:00:37,344 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6CV1; device=mote_telos14
+17 May 2012 22:00:37,344 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 14
+17 May 2012 22:00:37,344 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3UA2; device=mote_telos15
+17 May 2012 22:00:37,345 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 15
+17 May 2012 22:00:37,345 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO68RZ; device=mote_telos17
+17 May 2012 22:00:37,345 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 17
+17 May 2012 22:00:37,346 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3UVK; device=mote_telos18
+17 May 2012 22:00:37,346 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 18
+17 May 2012 22:00:37,347 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO4FQV; device=mote_telos19
+17 May 2012 22:00:37,347 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 19
+17 May 2012 22:00:37,348 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3OKT; device=mote_telos21
+17 May 2012 22:00:37,348 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 21
+17 May 2012 22:00:37,348 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6H9G; device=mote_telos22
+17 May 2012 22:00:37,349 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 22
+17 May 2012 22:00:37,349 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6C4O; device=mote_telos24
+17 May 2012 22:00:37,350 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 24
+17 May 2012 22:00:37,350 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6BLG; device=mote_telos25
+17 May 2012 22:00:37,350 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 25
+17 May 2012 22:00:37,351 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6H6Z; device=mote_telos27
+17 May 2012 22:00:37,351 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 27
+17 May 2012 22:00:37,351 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO40GK; device=mote_telos28
+17 May 2012 22:00:37,352 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 28
+17 May 2012 22:00:37,352 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6CH7; device=mote_telos29
+17 May 2012 22:00:37,352 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 29
+17 May 2012 22:00:37,353 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTOCCSR; device=mote_telos30
+17 May 2012 22:00:37,353 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 30
+17 May 2012 22:00:37,353 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3Z64; device=mote_telos31
+17 May 2012 22:00:37,354 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 31
+17 May 2012 22:00:37,354 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6G7C; device=mote_telos32
+17 May 2012 22:00:37,354 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 32
+17 May 2012 22:00:37,355 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3XMF; device=mote_telos33
+17 May 2012 22:00:37,355 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 33
+17 May 2012 22:00:37,355 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3TI0; device=mote_telos35
+17 May 2012 22:00:37,356 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 35
+17 May 2012 22:00:37,356 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6C0L; device=mote_telos36
+17 May 2012 22:00:37,356 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 36
+17 May 2012 22:00:37,357 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6AVP; device=mote_telos37
+17 May 2012 22:00:37,357 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 37
+17 May 2012 22:00:37,357 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6409; device=mote_telos38
+17 May 2012 22:00:37,358 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 38
+17 May 2012 22:00:37,358 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6G89; device=mote_telos39
+17 May 2012 22:00:37,358 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 39
+17 May 2012 22:00:37,359 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6DBR; device=mote_telos40
+17 May 2012 22:00:37,359 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 40
+17 May 2012 22:00:37,360 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3TIQ; device=mote_telos41
+17 May 2012 22:00:37,360 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 41
+17 May 2012 22:00:37,360 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6EGB; device=mote_telos42
+17 May 2012 22:00:37,361 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 42
+17 May 2012 22:00:37,361 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3W81; device=mote_telos43
+17 May 2012 22:00:37,362 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 43
+17 May 2012 22:00:37,362 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO40WD; device=mote_telos44
+17 May 2012 22:00:37,362 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 44
+17 May 2012 22:00:37,363 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3OZ5; device=mote_telos46
+17 May 2012 22:00:37,363 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 46
+17 May 2012 22:00:37,364 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3OFO; device=mote_telos47
+17 May 2012 22:00:37,364 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 47
+17 May 2012 22:00:37,365 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3VKQ; device=mote_telos48
+17 May 2012 22:00:37,365 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 48
+17 May 2012 22:00:37,366 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6H4A; device=mote_telos49
+17 May 2012 22:00:37,366 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 49
+17 May 2012 22:00:37,367 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3MLL; device=mote_telos50
+17 May 2012 22:00:37,367 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 50
+17 May 2012 22:00:37,368 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTP1DE4; device=mote_mica01
+17 May 2012 22:00:37,368 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 01
+17 May 2012 22:00:37,390 INFO main fi.motetool.motetool.USBarbitratorImpl - No devices was found, return null
+17 May 2012 22:00:37,393 INFO main fi.motetool.motetool.App - Everything OK, exiting
+17 May 2012 22:00:47,299 INFO main fi.motetool.motetool.App - Starting application
+17 May 2012 22:00:47,368 INFO main fi.motetool.motetool.App - Initializing depencencies
+17 May 2012 22:00:47,368 INFO main fi.motetool.motetool.App - Arguments parsed, can start logic
+17 May 2012 22:00:47,368 INFO main fi.motetool.motetool.App - Detecting new nodes
+17 May 2012 22:00:47,369 INFO main fi.motetool.motetool.USBarbitratorImpl - Will use motelist command: motelist -usb -c
+17 May 2012 22:00:47,373 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=M4AOCF99; device=mote_tmote04
+17 May 2012 22:00:47,374 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 04
+17 May 2012 22:00:47,375 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=M4AOCF7L; device=mote_tmoteXX
+17 May 2012 22:00:47,375 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3U5J; device=mote_telos04
+17 May 2012 22:00:47,375 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 04
+17 May 2012 22:00:47,375 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3UIT; device=mote_telos05
+17 May 2012 22:00:47,376 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 05
+17 May 2012 22:00:47,376 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3I5E; device=mote_telos06
+17 May 2012 22:00:47,376 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 06
+17 May 2012 22:00:47,376 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3I7K; device=mote_telos07
+17 May 2012 22:00:47,377 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 07
+17 May 2012 22:00:47,377 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6EKQ; device=mote_telos10
+17 May 2012 22:00:47,377 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 10
+17 May 2012 22:00:47,377 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO68UR; device=mote_telos12
+17 May 2012 22:00:47,378 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 12
+17 May 2012 22:00:47,378 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO405O; device=mote_telos13
+17 May 2012 22:00:47,378 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 13
+17 May 2012 22:00:47,378 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6CV1; device=mote_telos14
+17 May 2012 22:00:47,379 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 14
+17 May 2012 22:00:47,379 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3UA2; device=mote_telos15
+17 May 2012 22:00:47,379 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 15
+17 May 2012 22:00:47,379 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO68RZ; device=mote_telos17
+17 May 2012 22:00:47,379 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 17
+17 May 2012 22:00:47,380 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3UVK; device=mote_telos18
+17 May 2012 22:00:47,380 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 18
+17 May 2012 22:00:47,380 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO4FQV; device=mote_telos19
+17 May 2012 22:00:47,380 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 19
+17 May 2012 22:00:47,381 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3OKT; device=mote_telos21
+17 May 2012 22:00:47,381 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 21
+17 May 2012 22:00:47,381 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6H9G; device=mote_telos22
+17 May 2012 22:00:47,381 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 22
+17 May 2012 22:00:47,382 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6C4O; device=mote_telos24
+17 May 2012 22:00:47,382 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 24
+17 May 2012 22:00:47,383 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6BLG; device=mote_telos25
+17 May 2012 22:00:47,383 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 25
+17 May 2012 22:00:47,385 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6H6Z; device=mote_telos27
+17 May 2012 22:00:47,385 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 27
+17 May 2012 22:00:47,385 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO40GK; device=mote_telos28
+17 May 2012 22:00:47,385 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 28
+17 May 2012 22:00:47,386 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6CH7; device=mote_telos29
+17 May 2012 22:00:47,386 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 29
+17 May 2012 22:00:47,386 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTOCCSR; device=mote_telos30
+17 May 2012 22:00:47,386 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 30
+17 May 2012 22:00:47,387 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3Z64; device=mote_telos31
+17 May 2012 22:00:47,387 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 31
+17 May 2012 22:00:47,387 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6G7C; device=mote_telos32
+17 May 2012 22:00:47,387 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 32
+17 May 2012 22:00:47,387 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3XMF; device=mote_telos33
+17 May 2012 22:00:47,388 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 33
+17 May 2012 22:00:47,388 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3TI0; device=mote_telos35
+17 May 2012 22:00:47,388 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 35
+17 May 2012 22:00:47,388 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6C0L; device=mote_telos36
+17 May 2012 22:00:47,388 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 36
+17 May 2012 22:00:47,389 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6AVP; device=mote_telos37
+17 May 2012 22:00:47,389 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 37
+17 May 2012 22:00:47,389 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6409; device=mote_telos38
+17 May 2012 22:00:47,389 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 38
+17 May 2012 22:00:47,390 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6G89; device=mote_telos39
+17 May 2012 22:00:47,390 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 39
+17 May 2012 22:00:47,390 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6DBR; device=mote_telos40
+17 May 2012 22:00:47,390 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 40
+17 May 2012 22:00:47,390 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3TIQ; device=mote_telos41
+17 May 2012 22:00:47,391 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 41
+17 May 2012 22:00:47,391 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6EGB; device=mote_telos42
+17 May 2012 22:00:47,391 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 42
+17 May 2012 22:00:47,392 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3W81; device=mote_telos43
+17 May 2012 22:00:47,392 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 43
+17 May 2012 22:00:47,392 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO40WD; device=mote_telos44
+17 May 2012 22:00:47,393 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 44
+17 May 2012 22:00:47,393 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3OZ5; device=mote_telos46
+17 May 2012 22:00:47,393 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 46
+17 May 2012 22:00:47,394 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3OFO; device=mote_telos47
+17 May 2012 22:00:47,394 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 47
+17 May 2012 22:00:47,394 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3VKQ; device=mote_telos48
+17 May 2012 22:00:47,394 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 48
+17 May 2012 22:00:47,395 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO6H4A; device=mote_telos49
+17 May 2012 22:00:47,395 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 49
+17 May 2012 22:00:47,395 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTO3MLL; device=mote_telos50
+17 May 2012 22:00:47,396 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 50
+17 May 2012 22:00:47,396 INFO main fi.motetool.motetool.USBarbitratorImpl - Read info from config file: Serial=XBTP1DE4; device=mote_mica01
+17 May 2012 22:00:47,396 INFO main fi.motetool.motetool.USBarbitratorImpl - Node ID discovered: 01
+17 May 2012 22:00:47,417 INFO main fi.motetool.motetool.USBarbitratorImpl - No devices was found, return null
+17 May 2012 22:00:47,419 INFO main fi.motetool.motetool.App - Everything OK, exiting
