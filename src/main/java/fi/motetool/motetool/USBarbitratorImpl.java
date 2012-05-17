@@ -801,6 +801,7 @@ public class USBarbitratorImpl {
                     for(int i=0; i<4; i++){
                         log.info("Reprogramming nodeID: " + ncr.getNodeId() + "; On device: " + ncr.getDeviceAlias() + "; Try: " + (i+1));
                         log.info("Going to execute: " + command);
+                        jobOutput.add("\t\tGoing to execute: " + command);
                         try {
                             // execute motelist command
                             Process p = Runtime.getRuntime().exec(command, null, makefileDirF);
