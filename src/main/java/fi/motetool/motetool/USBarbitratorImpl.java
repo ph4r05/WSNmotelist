@@ -608,6 +608,8 @@ public class USBarbitratorImpl {
         Queue<String> jobOutput = new ConcurrentLinkedQueue<String>();
         
         try {
+            // clean code build
+            this.makeClean(makefileDirF);
             // need to build main code at first
             boolean result = this.buildCode(makefileDirF);
             if (result==false){
@@ -675,6 +677,50 @@ public class USBarbitratorImpl {
             }
         } else {
             System.out.println("All nodes flashed successfully!");
+        }
+    }
+    
+    private boolean makeClean(File makefileDirF) throws IOException, InterruptedException{
+        // execute motelist command
+        Process p = Runtime.getRuntime().exec("make clean", null, makefileDirF);
+        String output;
+        
+        StringBuilder sb = new StringBuilder();
+        BufferedReader bri = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+        BufferedReader bre = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line = null;
+        
+        long c=0;
+        while(c<5000){
+            if (bri.ready()){
+                line = bri.readLine();
+                sb.append(line).append("\n");
+                c=0;
+            }
+
+            if (bre.ready()){
+                line = bre.readLine();
+                sb.append(line).append("\n");
+                c=0;
+            }
+            
+            c+=1;
+            Thread.sleep(1);
+        }
+        bri.close();
+        bre.close();
+        
+        output = sb.toString();
+        System.out.println("Code build output: " + output);
+
+        // sunchronous call, wait for command completion
+        p.waitFor();
+        int exitVal = p.exitValue();    
+        
+        if (exitVal == 0) {
+            return true;
+        } else {
+            return false;
         }
     }
     
