@@ -177,6 +177,10 @@ public class App {
         if (reprogramNodesWith!=null && reprogramNodesWith.isEmpty()==false){
             this.reprogramConnectedNodes(this.reprogramNodesWith);
         }     
+        
+        if (this.reset){
+            this.resetNodes();
+        }
     }
 
     private void initDependencies() {
@@ -207,6 +211,11 @@ public class App {
     public void reprogramConnectedNodes(String makefileDir){
         List<NodeConfigRecord> nodes2connect = this.getNodes2connect();
         this.usbArbitrator.reprogramNodes(nodes2connect, makefileDir);
+    }
+    
+    public void resetNodes(){
+        List<NodeConfigRecord> nodes2connect = this.getNodes2connect();
+        this.usbArbitrator.resetNodes(nodes2connect);
     }
     
    public List<NodeConfigRecord> getNodes2connect(){
