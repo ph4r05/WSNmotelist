@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package fi.motetool.motetool;
+package fi.motetool.nodes;
 
 /**
  * Defines mote specific values (signal levels, power level, channels)

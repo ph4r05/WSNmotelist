@@ -3,17 +3,14 @@
  * and open the template in the editor.
  */
 
-package fi.motetool.motetool;
-
-import java.util.Properties;
+package fi.motetool.nodes;
 
 /**
  *
  * @author ph4r05
  */
-public class NodePlatformTmoteSky extends NodePlatformGeneric{
-    public static final int platformId = NodePlatformFactory.NODE_PLATFORM_TMOTE;
-    private static final String TOSBSL_PATH = "/usr/bin/tos-bsl";
+public class NodePlatformMicaZ extends NodePlatformGeneric{
+    public static final int platformId = NodePlatformFactory.NODE_PLATFORM_MICAZ;
     
    /**
     * tx output power level
@@ -33,7 +30,7 @@ public class NodePlatformTmoteSky extends NodePlatformGeneric{
 
     @Override
     public String getPlatform() {
-        return "TelosB";
+        return "MicaZ";
     }
 
     /**
@@ -43,45 +40,31 @@ public class NodePlatformTmoteSky extends NodePlatformGeneric{
      */
     @Override
     public int getPlatformId() {
-        return NodePlatformTmoteSky.platformId;
+        return NodePlatformMicaZ.platformId;
     }
 
     @Override
     public int[] getTxLevels() {
-        return NodePlatformTmoteSky.signalLevel;
+        return NodePlatformMicaZ.signalLevel;
     }
 
     @Override
     public double[] getTxOutputPower() {
-        return NodePlatformTmoteSky.powerLevel;
+        return NodePlatformMicaZ.powerLevel;
     }
-
+    
     @Override
     public String getConnectionStringSignature() {
-        return "tmote";
+        return "micaz";
     }
 
     @Override
     public boolean isPlatformFromNodeDescription(String desc) {
-        if (desc==null){
-            throw new NullPointerException("Platform description is empty");
-        }
-        
-        return "Moteiv tmote sky".equalsIgnoreCase(desc.trim());
-    }
+        return super.isPlatformFromNodeDescription(desc);
+    }   
     
     @Override
     public String getPlatformReflashId() {
-        return "telosb";
-    }
-
-    @Override
-    public boolean canHwReset() {
-        return true;
-    }
-
-    @Override
-    public String hwResetCommand(String device, Properties prop) {
-        return TOSBSL_PATH + " --telosb -r -c " + device;
+        return "micaz";
     }
 }

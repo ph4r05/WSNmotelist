@@ -2,7 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fi.motetool.motetool;
+
+package fi.motetool.nodes;
 
 import java.util.Properties;
 
@@ -10,8 +11,9 @@ import java.util.Properties;
  *
  * @author ph4r05
  */
-public class NodePlatformWSN430 extends NodePlatformGeneric{
-    public static final int platformId = NodePlatformFactory.NODE_PLATFORM_WSN430;
+public class NodePlatformTelosb extends NodePlatformGeneric{
+    public static final int platformId = NodePlatformFactory.NODE_PLATFORM_TELOSB; 
+    private static final String TOSBSL_PATH = "/usr/bin/tos-bsl";    
     
    /**
     * tx output power level
@@ -31,7 +33,7 @@ public class NodePlatformWSN430 extends NodePlatformGeneric{
 
     @Override
     public String getPlatform() {
-        return "WSN430";
+        return "TelosB";
     }
 
     /**
@@ -41,22 +43,22 @@ public class NodePlatformWSN430 extends NodePlatformGeneric{
      */
     @Override
     public int getPlatformId() {
-        return NodePlatformWSN430.platformId;
+        return NodePlatformTelosb.platformId;
     }
 
     @Override
     public int[] getTxLevels() {
-        return NodePlatformWSN430.signalLevel;
+        return NodePlatformTelosb.signalLevel;
     }
 
     @Override
     public double[] getTxOutputPower() {
-        return NodePlatformWSN430.powerLevel;
+        return NodePlatformTelosb.powerLevel;
     }
-
+    
     @Override
     public String getConnectionStringSignature() {
-        return "wsn430";
+        return "telosb";
     }
 
     @Override
@@ -65,14 +67,21 @@ public class NodePlatformWSN430 extends NodePlatformGeneric{
             throw new NullPointerException("Platform description is empty");
         }
         
-        return "Senslab WSN430".equalsIgnoreCase(desc.trim());
+        return "XBOW Crossbow Telos Rev.B".equalsIgnoreCase(desc.trim());
     }
     
     @Override
     public String getPlatformReflashId() {
-        return "wsn430";
+        return "telosb";
     }
 
+    /**
+     * Caution here.
+     * HW reset can be performed only if node is connected by serial (there is any
+     * device present for it)
+     * 
+     * @return 
+     */
     @Override
     public boolean canHwReset() {
         return true;
@@ -80,6 +89,6 @@ public class NodePlatformWSN430 extends NodePlatformGeneric{
 
     @Override
     public String hwResetCommand(String device, Properties prop) {
-        return null;
+        return TOSBSL_PATH + " --telosb -r -c " + device;
     }
 }

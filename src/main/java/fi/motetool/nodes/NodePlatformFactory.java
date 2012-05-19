@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package fi.motetool.motetool;
+package fi.motetool.nodes;
 
+import fi.motetool.motetool.NodeConfigRecord;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package fi.motetool.motetool;
+package fi.motetool.nodes;
 
 import java.util.Properties;
 
@@ -11,9 +11,9 @@ import java.util.Properties;
  *
  * @author ph4r05
  */
-public class NodePlatformTelosb extends NodePlatformGeneric{
-    public static final int platformId = NodePlatformFactory.NODE_PLATFORM_TELOSB; 
-    private static final String TOSBSL_PATH = "/usr/bin/tos-bsl";    
+public class NodePlatformTmoteSky extends NodePlatformGeneric{
+    public static final int platformId = NodePlatformFactory.NODE_PLATFORM_TMOTE;
+    private static final String TOSBSL_PATH = "/usr/bin/tos-bsl";
     
    /**
     * tx output power level
@@ -43,22 +43,22 @@ public class NodePlatformTelosb extends NodePlatformGeneric{
      */
     @Override
     public int getPlatformId() {
-        return NodePlatformTelosb.platformId;
+        return NodePlatformTmoteSky.platformId;
     }
 
     @Override
     public int[] getTxLevels() {
-        return NodePlatformTelosb.signalLevel;
+        return NodePlatformTmoteSky.signalLevel;
     }
 
     @Override
     public double[] getTxOutputPower() {
-        return NodePlatformTelosb.powerLevel;
+        return NodePlatformTmoteSky.powerLevel;
     }
-    
+
     @Override
     public String getConnectionStringSignature() {
-        return "telosb";
+        return "tmote";
     }
 
     @Override
@@ -67,7 +67,7 @@ public class NodePlatformTelosb extends NodePlatformGeneric{
             throw new NullPointerException("Platform description is empty");
         }
         
-        return "XBOW Crossbow Telos Rev.B".equalsIgnoreCase(desc.trim());
+        return "Moteiv tmote sky".equalsIgnoreCase(desc.trim());
     }
     
     @Override
@@ -75,13 +75,6 @@ public class NodePlatformTelosb extends NodePlatformGeneric{
         return "telosb";
     }
 
-    /**
-     * Caution here.
-     * HW reset can be performed only if node is connected by serial (there is any
-     * device present for it)
-     * 
-     * @return 
-     */
     @Override
     public boolean canHwReset() {
         return true;

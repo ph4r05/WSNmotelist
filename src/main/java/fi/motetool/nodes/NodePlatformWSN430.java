@@ -2,27 +2,27 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+package fi.motetool.nodes;
 
-package fi.motetool.motetool;
+import java.util.Properties;
 
 /**
  *
  * @author ph4r05
  */
-public class NodePlatformIris extends NodePlatformGeneric {
-   public static final int platformId = NodePlatformFactory.NODE_PLATFORM_IRIS;
-   
+public class NodePlatformWSN430 extends NodePlatformGeneric{
+    public static final int platformId = NodePlatformFactory.NODE_PLATFORM_WSN430;
+    
    /**
     * tx output power level
     */
-    public static final int[] signalLevel = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    public static final int[] signalLevel = {31,27,23,19,15,11,7,3};
 
    /**
     * Corresponding power levels to signalLevel;
     * Power level at TX power 31 = powerLevel[0], 31 = signalLevel[0];
     */
-    public static final double[] powerLevel = {+3.0,+2.6,+2.1,+1.6,+1.1,+0.5,-0.2,
-                                -1.2,-2.2,-3.2,-4.2,-5.2,-7.2,-9.2,-12.2,-17.2};
+    public static final double[] powerLevel = {0., -1., -3., -5., -7., -10., -15., -25.};
 
    /**
     * Tunable tx-rx channel
@@ -31,7 +31,7 @@ public class NodePlatformIris extends NodePlatformGeneric {
 
     @Override
     public String getPlatform() {
-        return "IRIS";
+        return "WSN430";
     }
 
     /**
@@ -41,33 +41,45 @@ public class NodePlatformIris extends NodePlatformGeneric {
      */
     @Override
     public int getPlatformId() {
-        return NodePlatformIris.platformId;
+        return NodePlatformWSN430.platformId;
     }
 
     @Override
     public int[] getTxLevels() {
-        return NodePlatformIris.signalLevel;
+        return NodePlatformWSN430.signalLevel;
     }
 
     @Override
     public double[] getTxOutputPower() {
-        return NodePlatformIris.powerLevel;
+        return NodePlatformWSN430.powerLevel;
     }
 
     @Override
     public String getConnectionStringSignature() {
-        return "iris";
+        return "wsn430";
     }
 
     @Override
     public boolean isPlatformFromNodeDescription(String desc) {
-        return super.isPlatformFromNodeDescription(desc);
+        if (desc==null){
+            throw new NullPointerException("Platform description is empty");
+        }
+        
+        return "Senslab WSN430".equalsIgnoreCase(desc.trim());
+    }
+    
+    @Override
+    public String getPlatformReflashId() {
+        return "wsn430";
     }
 
     @Override
-    public String getPlatformReflashId() {
-        return "iris";
+    public boolean canHwReset() {
+        return true;
     }
-    
-    
+
+    @Override
+    public String hwResetCommand(String device, Properties prop) {
+        return null;
+    }
 }
