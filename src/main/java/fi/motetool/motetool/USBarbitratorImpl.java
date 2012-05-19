@@ -9,6 +9,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -536,12 +538,24 @@ public class USBarbitratorImpl {
      */
     
     public void showBinding(){
-        System.out.println("Dumping output: ");
+        System.out.println("Dumping output (by nodeID): ");
+        
+        // sort by node id :)
+        List<NodeConfigRecord> ncrList = new ArrayList<NodeConfigRecord>(this.moteList.size());
         
         Iterator<String> iterator = this.moteList.keySet().iterator();
         while(iterator.hasNext()){
             String serial = iterator.next();
             NodeConfigRecord ncr = this.moteList.get(serial);
+            
+            ncrList.add(ncr);
+        }
+        
+        // sort
+        Collections.sort(ncrList);
+        
+        // output
+        for(NodeConfigRecord ncr : ncrList){
             System.out.println(ncr.getHumanOutput());
         }
     }
@@ -590,6 +604,9 @@ public class USBarbitratorImpl {
         
         // clear job queue
         ncrJobQueue.clear();
+        
+        // sort
+        Collections.sort(nodes2connect);
         
         // info at the beggining
         System.out.println("Following nodes will be reprogrammed: ");
@@ -671,10 +688,11 @@ public class USBarbitratorImpl {
         
         // was there some errors?
         if (nodesFailed.isEmpty()==false){
+            List<NodeConfigRecord> failedList = new ArrayList(nodesFailed);
+            Collections.sort(failedList);
+            
             System.out.println("Some errors occurred during reflashing, problematic nodes: ");
-            iterator = nodesFailed.iterator();
-            while(iterator.hasNext()){
-                NodeConfigRecord ncr = iterator.next();
+            for(NodeConfigRecord ncr : failedList){
                 System.out.println(ncr.getHumanOutput());
             }
         } else {
