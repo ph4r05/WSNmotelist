@@ -770,6 +770,7 @@ public class USBarbitratorImpl {
         if (exitVal == 0) {
             return true;
         } else {
+            log.error("build code exit value: " + exitVal);
             return false;
         }
     }
