@@ -25,6 +25,12 @@ java SampleMain [options...] arguments...
                                    defined nodes will be used
 ```
 
+You can specify nodes that should be operated on (-m, -i). Format:
+* device file
+* serial
+* node id: '#43'
+* node id interval '#5-50'
+
 Standard output for detected nodes:
 ```
 java -jar motetool/target/motetool-1.0-SNAPSHOT.jar --reset
