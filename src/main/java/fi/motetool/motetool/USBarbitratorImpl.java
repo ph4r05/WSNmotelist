@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -21,7 +20,6 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
@@ -60,6 +58,11 @@ public class USBarbitratorImpl {
      * Threadcount to use during reprogram
      */
     private int threadCount;
+    
+    /**
+     * Retry counter for unsuccessful operation.
+     */
+    private int retryCount=3;
     
     /**
      * Performs real detection of connected nodes and returns answer as map, indexed
@@ -198,6 +201,7 @@ public class USBarbitratorImpl {
      * dev aliases
      * 
      * @return Mapping USB serial -> node file
+     * @throws java.io.FileNotFoundException
      */
     protected Map<String, NodeConfigRecordLocal> loadUdevRules() throws FileNotFoundException, IOException{
         String udevRulesFilePath = App.getRunningInstance().getProps().getProperty("moteUdevRules");
@@ -320,7 +324,6 @@ public class USBarbitratorImpl {
      * @param excludeString
      * @return 
      */
-    
     public List<NodeConfigRecord> getNodes2connect(String includeString, String excludeString){
         // include string parsing
         if (includeString==null){
@@ -509,26 +512,22 @@ public class USBarbitratorImpl {
         
         return nodes2return;
     }
-
     
     public NodeConfigRecord getNodeById(Integer id) {
         if (this.moteList==null || this.moteList.containsKeyNodeId(id)==false) return null;
         return this.moteList.getByNodeId(id);
     }
-
     
     public NodeConfigRecord getNodeByPath(String path) {
         if (this.moteList==null || this.moteList.containsKeyDevPath(path) ==false) return null;
         return this.moteList.getByDevPath(path);
     }
 
-    
     public NodeConfigRecord getNodeBySerial(String serial) {
         if (this.moteList==null || this.moteList.containsKey(serial)) return null;
         return this.moteList.getBySerial(serial);
     }
-    
-    
+        
     public boolean ableToDetectConnectedNodes() {
         return true;
     }
@@ -538,17 +537,12 @@ public class USBarbitratorImpl {
      */
     
     public void showBinding(){
-        System.out.println("Dumping output (by nodeID): ");
+        System.out.println(String.format("Dumping output (by nodeID, udev file=[%s])", 
+                App.getRunningInstance().getProps().getProperty("moteUdevRules")));
         
-        // sort by node id :)
         List<NodeConfigRecord> ncrList = new ArrayList<NodeConfigRecord>(this.moteList.size());
-        
-        Iterator<String> iterator = this.moteList.keySet().iterator();
-        while(iterator.hasNext()){
-            String serial = iterator.next();
-            NodeConfigRecord ncr = this.moteList.get(serial);
-            
-            ncrList.add(ncr);
+        for(String serial : this.moteList.keySet()){
+            ncrList.add(this.moteList.get(serial));
         }
         
         // sort
@@ -560,15 +554,86 @@ public class USBarbitratorImpl {
         }
     }
     
-    public void resetNodes(List<NodeConfigRecord> nodes2connect){
+    /**
+     * Entry method for node reset according to a given list.
+     * @param nodes2connect 
+     */
+    public void resetNodes(List<NodeConfigRecord> nodes2connect) {
         // info at the beggining
-        System.out.println("Following nodes will be restarted: ");
-        Iterator<NodeConfigRecord> iterator = nodes2connect.iterator();
-        while(iterator.hasNext()){
-            NodeConfigRecord ncr = iterator.next();
-            System.out.println(ncr.getHumanOutput());
-            
-            this.resetNode(ncr);
+        if (threadCount == 1) {
+            System.out.println("Following nodes will be restarted: ");
+            Iterator<NodeConfigRecord> iterator = nodes2connect.iterator();
+            while (iterator.hasNext()) {
+                NodeConfigRecord ncr = iterator.next();
+                System.out.println(ncr.getHumanOutput());
+
+                this.resetNode(ncr);
+            }
+        } else {
+            System.out.println("Following nodes will be reseted: ");
+            Queue<NodeConfigRecord> ncrJobQueue = prepareJobQueue(nodes2connect, true);
+
+            // failed flash
+            Queue<NodeConfigRecord> nodesFailed = new ConcurrentLinkedQueue<NodeConfigRecord>();
+
+            // Output string from worker
+            Queue<String> jobOutput = new ConcurrentLinkedQueue<String>();
+
+            // spawn jobs
+            ExecutorService tasks = Executors.newFixedThreadPool(threadCount);
+            for (int i = 0; i < threadCount; i++) {
+                NodeResetWorker resetWorker = new NodeResetWorker();
+                resetWorker.jobOutput = jobOutput;
+                resetWorker.ncrJobQueue = ncrJobQueue;
+                resetWorker.nodesFailed = nodesFailed;
+                
+                tasks.execute(resetWorker);
+            }
+
+            // termination wait
+            try {
+                tasks.shutdown();
+                long startTime = System.currentTimeMillis();
+                while (true) {
+                    long curTime = System.currentTimeMillis();
+                    if ((curTime - startTime) > 1000 * 60 * 60) {
+                        break;
+                    }
+
+                    Thread.sleep(200);
+
+                    // check output queue
+                    while (jobOutput.isEmpty() == false) {
+                        String line = jobOutput.poll();
+                        if (line == null) {
+                            break;
+                        }
+
+                        System.out.println(line);
+                    }
+
+                    // terminated?
+                    if (tasks.isTerminated()) {
+                        break;
+                    }
+                }
+
+            } catch (InterruptedException ex) {
+                log.error("interrupted ", ex);
+            }
+
+            // was there some errors?
+            if (nodesFailed.isEmpty() == false) {
+                List<NodeConfigRecord> failedList = new ArrayList(nodesFailed);
+                Collections.sort(failedList);
+
+                System.out.println("Some errors occurred during reset, problematic nodes: ");
+                for (NodeConfigRecord ncr : failedList) {
+                    System.out.println(ncr.getHumanOutput());
+                }
+            } else {
+                System.out.println("All nodes reseted successfully!");
+            }
         }
     }
     
@@ -577,9 +642,8 @@ public class USBarbitratorImpl {
      * Only path to directory with makefile is required. Then is executed
      * make telosb install,X bsl,/dev/mote_telosX
      * 
-     * @extension: add multithreading to save time required for reprogramming
-     * 
-     * @param makeDir  absolute path to makefile directory with mote program
+     * @param nodes2connect
+     * @param makefileDir  absolute path to makefile directory with mote program
      */
     public void reprogramNodes(List<NodeConfigRecord> nodes2connect, String makefileDir){        
         // test if makefile exists
@@ -600,25 +664,8 @@ public class USBarbitratorImpl {
         }
         
         // Job queue
-        Queue<NodeConfigRecord> ncrJobQueue = new ConcurrentLinkedQueue<NodeConfigRecord>();
-        
-        // clear job queue
-        ncrJobQueue.clear();
-        
-        // sort
-        Collections.sort(nodes2connect);
-        
-        // info at the beggining
         System.out.println("Following nodes will be reprogrammed: ");
-        Iterator<NodeConfigRecord> iterator = nodes2connect.iterator();
-        while(iterator.hasNext()){
-            NodeConfigRecord ncr = iterator.next();
-            System.out.println(ncr.getHumanOutput());
-            
-            // push to queue
-            ncrJobQueue.add(ncr);
-        }
-        System.out.println();
+        Queue<NodeConfigRecord> ncrJobQueue = prepareJobQueue(nodes2connect, true);
         
         // failed flash
         Queue<NodeConfigRecord> nodesFailed = new ConcurrentLinkedQueue<NodeConfigRecord>();
@@ -700,95 +747,65 @@ public class USBarbitratorImpl {
         }
     }
     
-    private boolean makeClean(File makefileDirF) throws IOException, InterruptedException{
-        // execute motelist command
-        Process p = Runtime.getRuntime().exec("make clean", null, makefileDirF);
-        String output;
+    /**
+     * Prepares list of nodes for processing in a job.
+     * @param nodes2connect
+     * @param dump
+     * @return 
+     */
+    protected Queue<NodeConfigRecord> prepareJobQueue(List<NodeConfigRecord> nodes2connect, boolean dump){
+        Queue<NodeConfigRecord> ncrJobQueue = new ConcurrentLinkedQueue<NodeConfigRecord>();
         
-        StringBuilder sb = new StringBuilder();
-        BufferedReader bri = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-        BufferedReader bre = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String line = null;
+        // sort
+        Collections.sort(nodes2connect);
         
-        long c=0;
-        while(c<5000){
-            if (bri.ready()){
-                line = bri.readLine();
-                sb.append(line).append("\n");
-                c=0;
-            }
-
-            if (bre.ready()){
-                line = bre.readLine();
-                sb.append(line).append("\n");
-                c=0;
-            }
+        // info at the beggining
+        Iterator<NodeConfigRecord> iterator = nodes2connect.iterator();
+        while(iterator.hasNext()){
+            NodeConfigRecord ncr = iterator.next();
             
-            c+=1;
-            Thread.sleep(1);
+            // push to queue
+            ncrJobQueue.add(ncr);
+            
+            if (dump){
+                System.out.println(ncr.getHumanOutput());
+            }
         }
-        bri.close();
-        bre.close();
         
-        output = sb.toString();
-        System.out.println("Code build output: " + output);
-
-        // sunchronous call, wait for command completion
-        p.waitFor();
-        int exitVal = p.exitValue();    
-        
-        if (exitVal == 0) {
-            return true;
-        } else {
-            return false;
+        if (dump){
+            System.out.println();
         }
+        
+        return ncrJobQueue;
     }
     
     /**
-     * Builds main tinyos code for telosb platform
+     * Calls "make clean" in a given directory.
+     * @param makefileDirF
+     * @return
+     * @throws IOException
+     * @throws InterruptedException 
+     */
+    private boolean makeClean(File makefileDirF) throws IOException, InterruptedException{
+        // execute motelist command
+        CmdExecutionResult resExec = execute("make clean", OutputOpt.EXECUTE_STD_COMBINE, makefileDirF);
+        System.out.println("Code build output: " + resExec.stdOut);
+
+        return resExec.exitValue==0;
+    }
+    
+    /**
+     * Builds main Tinyos code for Telosb platform.
      * @return 
      */
     private boolean buildCode(File makefileDirF) throws IOException, InterruptedException{
-        // execute motelist command
-        Process p = Runtime.getRuntime().exec("make telosb", null, makefileDirF);
-        String output;
-        
-        StringBuilder sb = new StringBuilder();
-        BufferedReader bri = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-        BufferedReader bre = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String line = null;
-        
-        long c=0;
-        while(c<5000){
-            if (bri.ready()){
-                line = bri.readLine();
-                sb.append(line).append("\n");
-                c=0;
-            }
+        CmdExecutionResult resExec = execute("make telosb", OutputOpt.EXECUTE_STD_COMBINE, makefileDirF);
+        System.out.println("Code build output: " + resExec.stdOut);
 
-            if (bre.ready()){
-                line = bre.readLine();
-                sb.append(line).append("\n");
-                c=0;
-            }
-            
-            c+=1;
-            Thread.sleep(1);
-        }
-        bri.close();
-        bre.close();
-        
-        output = sb.toString();
-        System.out.println("Code build output: " + output);
-
-        // sunchronous call, wait for command completion
-        p.waitFor();
-        int exitVal = p.exitValue();    
-        
-        if (exitVal == 0) {
+        if (resExec.exitValue==0){
             return true;
         } else {
-            log.error("build code exit value: " + exitVal);
+            log.error("build code exit value: " + resExec.exitValue);
             return false;
         }
     }
@@ -814,28 +831,8 @@ public class USBarbitratorImpl {
          * @param i 
          */
         public boolean prepareCode(int i) throws IOException, InterruptedException{
-            // execute motelist command
-            Process p = Runtime.getRuntime().exec("make telosb id," + i, null, makefileDirF);
-            String output;
-
-            StringBuilder sb = new StringBuilder();
-            BufferedReader bri = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-            String line = null;
-            while ((line = bri.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            bri.close();
-            output = sb.toString();
-
-            // sunchronous call, wait for command completion
-            p.waitFor();
-            int exitVal = p.exitValue();
-
-            if (exitVal == 0) {
-                return true;
-            } else {
-                return false;
-            }
+            CmdExecutionResult resExec = execute("make telosb id," + i, OutputOpt.EXECUTE_STDERR_ONLY, makefileDirF);
+            return resExec.exitValue==0;
         }
         
         @Override
@@ -858,42 +855,24 @@ public class USBarbitratorImpl {
                             + ncr.getDeviceAlias() + " -r -e -I -p " 
                             + makefileDirF.getAbsolutePath() + "/build/telosb/main.ihex.out-" + ncr.getNodeId();
                     
-//                    String command = MAKE + " -f " + makefile.getAbsolutePath() + " "
-//                        + NodePlatformFactory.getPlatform(ncr.getPlatformId()).getPlatformReflashId()
-//                        +" install," + ncr.getNodeId() + " bsl," + ncr.getDeviceAlias();
-                    
                     boolean success=false;
                 
-                    // try to repeat 3 times if failed
-                    for(int i=0; i<4; i++){
+                    // try to repeat retryCount times if failed
+                    for(int i=0; i<=retryCount; i++){
                         log.info("Reprogramming nodeID: " + ncr.getNodeId() + "; On device: " + ncr.getDeviceAlias() + "; Try: " + (i+1));
                         log.info("Going to execute: " + command);
                         jobOutput.add("\t\tGoing to execute: " + command);
                         try {
                             // execute motelist command
-                            Process p = Runtime.getRuntime().exec(command, null, makefileDirF);
-                            String output;
+                            CmdExecutionResult resExec = execute(command, OutputOpt.EXECUTE_STDERR_ONLY, makefileDirF);
 
-                            StringBuilder sb = new StringBuilder();
-                            BufferedReader bri = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-                            String line = null;
-                            while ((line = bri.readLine()) != null) {
-                                sb.append(line).append("\n");
-                            }
-                            bri.close();
-                            output = sb.toString();
-
-                            // sunchronous call, wait for command completion
-                            p.waitFor();
-                            int exitVal = p.exitValue();
-
-                            if (exitVal == 0) {
+                            if (resExec.exitValue == 0) {
                                 log.info("Node " + ncr.getNodeId() + " flashed successfully");
                                 jobOutput.add("Node " + ncr.getNodeId() + " flashed successfully");
                                 success=true;
                                 break;
                             } else {
-                                log.info("Output: " + output);
+                                log.info("Output: " + resExec.stdErr);
                                 jobOutput.add("\tNode " + ncr.getNodeId() + " flash error!");
                             }
                         } catch (IOException ex) {
@@ -907,9 +886,43 @@ public class USBarbitratorImpl {
                         nodesFailed.add(ncr);
                     }
                 } catch (IOException ex) {
-                    java.util.logging.Logger.getLogger(USBarbitratorImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Exception in node reprogramming routine", ex);
                 } catch (InterruptedException ex) {
-                    java.util.logging.Logger.getLogger(USBarbitratorImpl.class.getName()).log(Level.SEVERE, null, ex);
+                    log.error("Exception in node reprogramming routine", ex);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Reset nodes from pool.
+     */
+    private class NodeResetWorker extends Thread{                
+        private Queue<NodeConfigRecord> ncrJobQueue;
+        private Queue<NodeConfigRecord> nodesFailed;
+        private Queue<String> jobOutput;
+        
+        public NodeResetWorker() {
+            this.setName("Node reset worker");
+        }
+        
+        @Override
+        public void run() {
+            while(ncrJobQueue.isEmpty()==false){
+                try {
+                    NodeConfigRecord ncr = ncrJobQueue.poll();
+                    if (ncr==null) continue;
+                    
+                    boolean success = resetNode(ncr);
+                    if (success) {
+                        log.info("Node " + ncr.getNodeId() + " reseted successfully");
+                        jobOutput.add("Node " + ncr.getNodeId() + " reseted successfully");
+                    } else {
+                        jobOutput.add("\tNode " + ncr.getNodeId() + " reset error!");
+                        nodesFailed.add(ncr);
+                    }
+                } catch (Exception ex) {
+                    log.error("Exception in node reset routine", ex);
                 }
             }
         }
@@ -919,6 +932,11 @@ public class USBarbitratorImpl {
         return true;
     }
     
+    /**
+     * Restarts node defined by NodeConfigRecord.
+     * @param ncr
+     * @return 
+     */
     public boolean resetNode(NodeConfigRecord ncr) {
         if (ncr==null){
             return false;
@@ -934,80 +952,136 @@ public class USBarbitratorImpl {
     }
     
     /**
-     * Restarts node with given command, successful restart returns 0 as returnvalue
+     * Restarts node with given command, successful restart returns 0 as return value.
      * @param resetCommand
      * @return 
      */
     protected boolean resetNode(String resetCommand){
-        // info at the beggining
-        
+         return resetNode(resetCommand, retryCount);
+    }
+    
+    /**
+     * Restarts node with given command, successful restart returns 0 as return value.
+     * @param resetCommand 
+     * @param retryCount Number of retries for node reset.
+     * @return  true     if reset was successful.
+     */
+    protected boolean resetNode(String resetCommand, int retryCount){
         boolean success=false;
-        // try to repeat 3 times if failed
-        for(int i=0; i<3; i++){
+        // try to repeat retryCount times if failed
+        for(int i=0; i<retryCount; i++){
             log.info("Going to execute: " + resetCommand);
             try {
-                // execute motelist command
-                Process p = Runtime.getRuntime().exec(resetCommand);
-                String output;
+                CmdExecutionResult resExec = execute(resetCommand, OutputOpt.EXECUTE_STDERR_ONLY);
 
-                StringBuilder sb = new StringBuilder();
-                BufferedReader bri = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-                String line = null;
-                while ((line = bri.readLine()) != null) {
-                    sb.append(line).append("\n");
-                }
-                bri.close();
-                output = sb.toString();
-
-                // sunchronous call, wait for command completion
-                p.waitFor();
-                int exitVal = p.exitValue();
-
-                if (exitVal == 0) {
+                if (resExec.exitValue == 0) {
                     log.info("Node restarted successfully");
                     success=true;
                     break;
                 } else {
-                    log.error("Node restart error! Output: " + output);
+                    log.error("Node restart error! Output: " + resExec.stdErr);
                 }
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 log.error("IOException error, try checking motelist command", ex);
-            } catch (InterruptedException ex) {
-                log.error("Motelist command was probably interrupted", ex);
             }
         } // end of for (retry count)
        
         return success;
     }
     
-    
-    public Map<String, NodeConfigRecord> getMoteList() {
-        return moteList;
+    /**
+     * Simple helper for executing a command.
+     * 
+     * @param command
+     * @param outOpt
+     * @return
+     * @throws IOException
+     * @throws InterruptedException 
+     */
+    public CmdExecutionResult execute(final String command, OutputOpt outOpt) throws IOException, InterruptedException{
+        return execute(command, outOpt, null);
     }
-
     
-    public void setMoteList(Map<String, NodeConfigRecord> moteList) {
-        this.moteList = (NodeSearchMap) moteList;
+    /**
+     * Enum defining possible ways of handling process output streams.
+     */
+    public static enum OutputOpt {
+        EXECUTE_STDOUT_ONLY,
+        EXECUTE_STDERR_ONLY,
+        EXECUTE_STD_COMBINE,
+        EXECUTE_STD_SEPARATE
     }
-
     
-    public void setMoteList(NodeSearchMap moteList) {
-        this.moteList = moteList;
-    }
+    /**
+     * Simple helper for executing a command.
+     * 
+     * @param command
+     * @param outOpt
+     * @param workingDir
+     * @return
+     * @throws IOException
+     * @throws InterruptedException 
+     */
+    public CmdExecutionResult execute(final String command, OutputOpt outOpt, File workingDir) throws IOException, InterruptedException{
+        CmdExecutionResult res = new CmdExecutionResult();
+        
+        // Execute motelist command
+        Process p = workingDir == null ? 
+                Runtime.getRuntime().exec(command) :
+                Runtime.getRuntime().exec(command, null, workingDir);
 
-    
-    public boolean isCheckConfigNodesToConnected() {
-        return checkConfigNodesToConnected;
-    }
-
-    public void setCheckConfigNodesToConnected(boolean checkConfigNodesToConnected) {
-        this.checkConfigNodesToConnected = checkConfigNodesToConnected;
+        // If interested only in stdErr, single thread is OK, otherwise 2 stream
+        // reading threads are needed.
+        if (outOpt==OutputOpt.EXECUTE_STDERR_ONLY || outOpt==OutputOpt.EXECUTE_STDOUT_ONLY){
+            StringBuilder sb = new StringBuilder();
+            BufferedReader bri = new BufferedReader(new InputStreamReader(
+                            outOpt==OutputOpt.EXECUTE_STDERR_ONLY ? p.getErrorStream() : p.getInputStream()));
+            
+            String line;
+            while ((line = bri.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            bri.close();
+            
+            if (outOpt==OutputOpt.EXECUTE_STDOUT_ONLY)
+                res.stdOut = sb.toString();
+            else if (outOpt==OutputOpt.EXECUTE_STDERR_ONLY)
+                res.stdErr = sb.toString();
+            
+            // synchronous call, wait for command completion
+            p.waitFor();
+        } else if (outOpt==OutputOpt.EXECUTE_STD_COMBINE){
+            // Combine both streams together
+            StreamMerger sm = new StreamMerger(p.getInputStream(), p.getErrorStream());
+            sm.run();
+            
+            // synchronous call, wait for command completion
+            p.waitFor();
+            
+            res.stdOut = sm.getOutput();
+        } else {
+            // Consume streams, older jvm's had a memory leak if streams were not read,
+            // some other jvm+OS combinations may block unless streams are consumed.
+            StreamGobbler errorGobbler  = new StreamGobbler(p.getErrorStream(), true);
+            StreamGobbler outputGobbler = new StreamGobbler(p.getInputStream(), true);
+            errorGobbler.start();
+            outputGobbler.start();
+            
+            // synchronous call, wait for command completion
+            p.waitFor();
+            
+            res.stdErr = errorGobbler.getOutput();
+            res.stdOut = outputGobbler.getOutput();
+        }
+        
+        res.exitValue = p.exitValue();
+        return res;
     }
     
     /**
      * Private helper class - holds info from parsing udev file
      */
-    protected class NodeConfigRecordLocal{
+    protected static class NodeConfigRecordLocal{
         private String device;
         private Integer nodeid;
 
@@ -1027,6 +1101,16 @@ public class USBarbitratorImpl {
             this.nodeid = nodeid;
         }
     }
+    
+    /**
+     * Wrapper class for job execution result.
+     */
+    protected static class CmdExecutionResult {
+        public int exitValue;
+        public String stdErr;
+        public String stdOut;
+        public long time;
+    }
 
     public int getThreadCount() {
         return threadCount;
@@ -1034,5 +1118,33 @@ public class USBarbitratorImpl {
 
     public void setThreadCount(int threadCount) {
         this.threadCount = threadCount;
+    }
+
+    public int getRetryCount() {
+        return retryCount;
+    }
+
+    public void setRetryCount(int retryCount) {
+        this.retryCount = retryCount;
+    }
+    
+    public Map<String, NodeConfigRecord> getMoteList() {
+        return moteList;
+    }
+
+    public void setMoteList(Map<String, NodeConfigRecord> moteList) {
+        this.moteList = (NodeSearchMap) moteList;
+    }
+
+    public void setMoteList(NodeSearchMap moteList) {
+        this.moteList = moteList;
+    }
+
+    public boolean isCheckConfigNodesToConnected() {
+        return checkConfigNodesToConnected;
+    }
+
+    public void setCheckConfigNodesToConnected(boolean checkConfigNodesToConnected) {
+        this.checkConfigNodesToConnected = checkConfigNodesToConnected;
     }
 }

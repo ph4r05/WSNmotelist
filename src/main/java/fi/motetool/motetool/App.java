@@ -25,32 +25,40 @@ public class App {
     @Argument
     private List<String> arguments = new ArrayList<String>(8);
     
-    @Option(name = "--debug", aliases = {"-d"}, usage = "enables debug output")
+    @Option(name = "--debug", aliases = {"-d"}, usage = "Enables debugging output.")
     private boolean debug;
     
-    @Option(name = "--detect-nodes", usage = "performs node detection, read-only operation")
+    @Option(name = "--detect-nodes", usage = "Performs node detection, read-only operation.")
     private boolean detectNodes;
     
-    @Option(name = "--show-binding", usage = "returns database binding for connected nodes")
+    @Option(name = "--show-binding", usage = "Returns database binding for connected nodes.")
     private boolean showBinding=true;
     
-    @Option(name = "--use-motes", aliases={"-m"}, usage = "comma separated list of motes serial numbers to use in experiment. If ALL present, all defined nodes will be used")
+    @Option(name = "--use-motes", aliases={"-m"}, usage = "Comma separated motes descriptors to operate on. "
+            + "Keyword \"ALL\"=all defined nodes. "
+            + "Descriptor can be: \n"
+            + "\ta) node serial: 'XBTO6C0L'\n"
+            + "\tb) node id, node id range: '#36' or '#1-50'\n"
+            + "\tc) node alias (node ID in suffix): /dev/mote_telos36")
     private String useMotesString = null;
     
-    @Option(name = "--ignore-motes", aliases={"-i"}, usage = "comma separated list of motes serial numbers to ignore in experiment.")
+    @Option(name = "--ignore-motes", aliases={"-i"}, usage = "Comma separated motes descriptors to exclude from operation.")
     private String ignoreMotesString = null;
     
-    @Option(name = "--motelist", usage = "sets path to motelist command")
+    @Option(name = "--motelist", usage = "Sets path to motelist command.")
     private String motelistCommand = null;
     
-    @Option(name = "--reprogram-nodes-with", aliases={"-f"}, usage = "path to node software directory to reprogram nodes with. Must contain tinyos makefile")
+    @Option(name = "--reprogram-nodes-with", aliases={"-f"}, usage = "Path to node software directory to reprogram nodes with. Must contain Tinyos Makefile.")
     private String reprogramNodesWith=null;
     
-    @Option(name="--reset", aliases={"-r"}, usage = "reset nodes")
+    @Option(name="--reset", aliases={"-r"}, usage = "Reset nodes.")
     private boolean reset=false;
     
-    @Option(name="--threads", aliases={"-t"}, usage="thread count to use during reprogramming")
+    @Option(name="--threads", aliases={"-t"}, usage="Thread count to use during reprogramming.")
     private int threadCount=1;
+    
+    @Option(name="--retry", aliases={"-e"}, usage="Number of retries of unsuccessfull operation.")
+    private int retryCount=3;
     
     // Running instance of application.
     // To be reachable from another modules for configuration purposes
@@ -171,6 +179,7 @@ public class App {
         // experiment starting, detect nodes, check if same by default
         log.info("Detecting new nodes");
         this.usbArbitrator.setThreadCount(threadCount);
+        this.usbArbitrator.setRetryCount(retryCount);
         this.usbArbitrator.detectConnectedNodes();
         
         // reprogram nodes?
