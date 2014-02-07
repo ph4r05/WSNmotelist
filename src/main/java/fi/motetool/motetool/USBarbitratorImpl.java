@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  */
 public class USBarbitratorImpl {
     protected static final Logger log = LoggerFactory.getLogger(USBarbitratorImpl.class);
-    protected static final String UDEV_RULES_LINE_PATTERN = "^ATTRS\\{serial\\}\\s*==\\s*\\\"([0-9a-zA-Z_]+)\\\",\\s*NAME\\s*=\\s*\\\"([0-9a-zA-Z_]+)\\\".*";
+    protected static final String UDEV_RULES_LINE_PATTERN = "^ATTRS\\{serial\\}\\s*==\\s*\\\"([0-9a-zA-Z_]+)\\\",\\s*(?:NAME|SYMLINK)\\s*=\\s*\\\"([0-9a-zA-Z_]+)\\\".*";
     protected static final String NODE_ID_PATTERN = ".*?([0-9]+)$";
     protected static final String NODEID_INTERVAL_PATTERN = "#([0-9]+)-([0-9]+)";
     protected static final String MAKE="/usr/bin/make";
