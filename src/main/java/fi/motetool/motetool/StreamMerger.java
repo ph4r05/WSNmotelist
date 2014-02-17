@@ -6,8 +6,8 @@
 
 package fi.motetool.motetool;
 
-import static fi.motetool.motetool.StreamGobbler.log;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Merges two String input streams to one.
@@ -26,6 +26,11 @@ public class StreamMerger {
         this.is2 = is2;
         g1 = new StreamGobbler(is1, output);
         g2 = new StreamGobbler(is2, output);
+    }
+    
+    public void setOutputStream(OutputStream os){
+        g1.setOs(os);
+        g2.setOs(os);
     }
     
     public void run() {

@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +21,7 @@ public class StreamGobbler extends Thread {
     private InputStream is;
     private StringBuffer output;
     private volatile boolean completed; // mark volatile to guarantee a thread safety
+    private OutputStream os;
 
     public StreamGobbler(InputStream is, boolean readStream) {
         this.is = is;
@@ -33,6 +36,8 @@ public class StreamGobbler extends Thread {
     @Override
     public void run() {
         completed = false;
+        PrintWriter writer = os==null ? null : new PrintWriter(os);
+        
         try {
             String NL = System.getProperty("line.separator", "\r\n");
 
@@ -44,7 +49,17 @@ public class StreamGobbler extends Thread {
                     // Can be done in 2 appends but due to thread safety.
                     output.append(line+NL);
                 }
+                
+                if (writer != null){
+                    writer.write(line+NL);
+                    writer.flush();
+                }
             }
+            
+            if (writer != null){
+                writer.flush();
+            }
+            
         } catch (IOException ex) {
             log.error("Exception in reading stream", ex);
         }
@@ -67,5 +82,13 @@ public class StreamGobbler extends Thread {
      */
     public boolean isCompleted() {
         return completed;
+    }
+    
+    public OutputStream getOs() {
+        return os;
+    }
+
+    public void setOs(OutputStream os) {
+        this.os = os;
     }
 }
